@@ -1,0 +1,15 @@
+app = "seridor_palaciogame"
+
+[env]
+PORT = "3500"
+
+[[services]]
+  internal_port = 3500
+  protocol = "udp"
+
+  [[services.ports]]
+    port = 3500
+
+  [[services.udp_checks]]
+    interval = "10s"
+    timeout = "2s"
