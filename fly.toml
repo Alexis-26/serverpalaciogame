@@ -1,4 +1,4 @@
-app = "seridor_palaciogame"
+app = "seridor-palaciogame"
 
 [env]
 PORT = "3500"
