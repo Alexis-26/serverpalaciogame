@@ -1,32 +1,21 @@
 FROM ubuntu:22.04
 
-# Evitar prompts interactivos
-ENV DEBIAN_FRONTEND=noninteractive
+# Instalar dependencias requeridas por ejecutables de Godot headless
+RUN apt update && apt install -y wget unzip libx11-6 libxcursor1 libxrandr2 libxi6 libasound2 libpulse0 libxinerama1 libxext6 libgl1-mesa-glx
 
-# Instalar solo las dependencias necesarias para ejecutables de Godot headless
-RUN apt update && apt install -y \
-    libx11-6 \
-    libxcursor1 \
-    libxrandr2 \
-    libxi6 \
-    libasound2 \
-    libpulse0 \
-    libxinerama1 \
-    libxext6 \
-    libgl1-mesa-glx \
-    && apt clean && rm -rf /var/lib/apt/lists/*
-
-# Crear el directorio del servidor
+# Crear carpeta de app
 WORKDIR /app
 
-# Copiar el ejecutable
+# Copiar el ejecutable y el archivo .pck
 COPY palacio_game.x86_64 /app/server
+COPY palacio_game.pck /app/palacio_game.pck
 
-# Darle permisos de ejecución
+# Asegurar permisos de ejecución
 RUN chmod +x /app/server
 
-# Exponer el puerto UDP que usará Godot
+# Exponer puerto UDP usado por Godot
 EXPOSE 3500/udp
 
-# Ejecutar el servidor
-CMD ["/app/server", "--headless", "--server"]
+# Comando para lanzar el servidor
+CMD ["./server", "--headless", "--server"]
+
