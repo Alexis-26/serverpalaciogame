@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Copiar el ejecutable y el archivo .pck
 COPY palacio_game.x86_64 /app/server
-COPY palacio_game.pck /app/palacio_game.pck
+COPY palacio_game.pck /app/server.pck
 
 # Asegurar permisos de ejecución
 RUN chmod +x /app/server
